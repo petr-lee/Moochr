@@ -83,6 +83,6 @@ function showResults(query) {
 };
 
 function addResult(name, date, time, location, url) {
-    var child = '<a id="linkBox" href="' + url + '>' + '<div class="result">' + '<span id = "emptyspan"></span>' + '<p class="event-name"> <B id="bold">' + name + '</B></p><p class="event-date">' + date + '</p><p class="event-time">' + time + '</p><p class="event-location">' + location + '</p></div>' + '</a>';
+    var child = '<a id="linkBox" href="' + url + '">' + '<div class="result">' + '<span id = "emptyspan"></span>' + '<p class="event-name"> <B id="bold">' + name + '</B></p><p class="event-date">' + date + '</p><p class="event-time">' + time + '</p><p class="event-location">' + location + '</p></div>' + '</a>';
 	$('#results').append(child);
 }
