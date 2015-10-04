@@ -15,24 +15,24 @@ $(document).ready(function() {
 	});
 
 	$('#search button').click(function() {
-		var query = $('#search input').val();
-		$('#search input').val('');
-		showResults(query);
+	    var input = $('#search input').val();
+		showResults(input);
 	});
 });
 
 function showResults(query) {
-	$('#results').empty();
-	window.fbAsyncInit = function() {
+    $('#results').empty();
+    window.fbAsyncInit = function () {
 		FB.init({
-			appId      : '690302597771507',
+		    appId: '1500461180253758',
 			xfbml      : true,
 			version    : 'v2.4'
 		});
+
 		FB.api(
 			'/search',
 			'GET',
-			{ "q": query, "limit": 1000, "type": "event", "access_token": "CAACEdEose0cBAHAUZCv8wLZC5nIs5mjVZCwnl4OAccstjKbil9HC1p6Q3DCQTcOZALPZAWYMvytA1o7QsSONKJBZCt0nku648BUK4684RKilmSE4vV907SLrZAZAoLZArUZBAMx6PWlmFQhLxNKr7vHMqEPY3CbY84X9SdeZAWfA6gWy7cCMQcyuZCYdjpujkDuxJKZCMmOdm5bae8k1VrPcuBf1J" },
+			{ "q": query, "limit": 1000, "type": "event", "access_token": "CAACEdEose0cBAFI7VnZCFyP8dC3GhMCL9EZA8WC2K9C48odaN207AFMOUQ7UsDkrizMVdibjtZCsbSmSnyA5ZCAZB6hEW6WBsLcsiT15ukFSdd3jAgyjtmBg1XFW03xYNlQcCU7ZCn8aLtarREVvCDHTRBWkaHlJtjuG2jnlAcbF5E4DdlOhD2uQNGbdWCicPhc2Kd5DBdOAZDZD" },
 			function (response) {
 				var currDate = new Date();
 				var events = response.data;
@@ -49,8 +49,17 @@ function showResults(query) {
     						if ( time[a] < 10 ) {
         						time[a] = "0" + time[a];
    							}
-  						}
-						addResult(events[i].name, date, time.join(':') + ' ' + suffix, events[i].place.location.city + ', ' + events[i].place.location.country);
+						}
+						var link = "https://www.facebook.com/" + events[i].id;
+						if (!events[i].place.location)
+						{
+						    addResult(events[i].name, date, time.join(':') + ' ' + suffix, events[i].place.location.city + ', ' + events[i].place.location.country, link);
+						}
+						else
+						{
+						    addResult(events[i].name, date, time.join(':') + ' ' + suffix, " ", link);
+						}
+						
 					}
 				}
 			}
@@ -66,7 +75,7 @@ function showResults(query) {
 	}(document, 'script', 'facebook-jssdk'));
 };
 
-function addResult(name, date, time, location) {
-	var child = '<div class="result"><p class="event-name">' + name + '</p><p class="event-date">' + date + '</p><p class="event-time">' + time + '</p><p class="event-location">' + location + '</p></div>';
+function addResult(name, date, time, location, url) {
+	var child = '<div class="result">' + '<a href="' + url + '>' + '<span id = "emptyspan"></span></a>' + '<p class="event-name">' + name + '</p><p class="event-date">' + date + '</p><p class="event-time">' + time + '</p><p class="event-location">' + location + '</p></div>';
 	$('#results').append(child);
 }

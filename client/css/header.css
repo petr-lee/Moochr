@@ -35,4 +35,9 @@
   #landing button:focus {
     outline: none; }
 
+  #link{
+      text-decoration: none;
+      color: white;
+  }
+
 /*# sourceMappingURL=header.css.map */
