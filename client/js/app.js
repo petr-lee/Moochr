@@ -15,9 +15,22 @@ $(document).ready(function() {
 	});
 
 	$('#search button').click(function() {
-	    var input = $('#search input').val();
-		showResults(input);
+	    window.location.reload();
 	});
+
+	$('#textbox').keypress(handle);
+	function handle(e) {
+	    if (e.keyCode === 13) {
+	        var query = $('.center input').val();
+	        $('.center input').val('');
+	        $('#landing').fadeOut(0);
+	        $('#search').fadeIn(0);
+
+	        $('#search input').val(query);
+	        showResults(query);
+	        return false;
+	    }
+	}
 });
 
 function showResults(query) {
@@ -32,7 +45,7 @@ function showResults(query) {
 		FB.api(
 			'/search',
 			'GET',
-			{ "q": query, "limit": 1000, "type": "event", "access_token": "CAACEdEose0cBAFI7VnZCFyP8dC3GhMCL9EZA8WC2K9C48odaN207AFMOUQ7UsDkrizMVdibjtZCsbSmSnyA5ZCAZB6hEW6WBsLcsiT15ukFSdd3jAgyjtmBg1XFW03xYNlQcCU7ZCn8aLtarREVvCDHTRBWkaHlJtjuG2jnlAcbF5E4DdlOhD2uQNGbdWCicPhc2Kd5DBdOAZDZD" },
+			{ "q": query, "limit": 1000, "type": "event", "access_token": "CAACEdEose0cBAOo2riP0KhZA7RlJNTFZB85txZA4ilvRjZCKAITpq8CofoilEINPpLQq0XbrmDBJ9QH1OFPaZCDzyJzlP7NIgV7r452ZBbI0y1PZArttNqTMBCizcwJIQ2KjclP1a11yhqIO70kbDtojSpa5xeHm5V0dZBe45tJPaSoD1IcwnQDZBlT60qCkRKlUu1OsRKZA2ZBNAZDZD" },
 			function (response) {
 				var currDate = new Date();
 				var events = response.data;
@@ -51,14 +64,8 @@ function showResults(query) {
    							}
 						}
 						var link = "https://www.facebook.com/" + events[i].id;
-						if (!events[i].place.location)
-						{
-						    addResult(events[i].name, date, time.join(':') + ' ' + suffix, events[i].place.location.city + ', ' + events[i].place.location.country, link);
-						}
-						else
-						{
-						    addResult(events[i].name, date, time.join(':') + ' ' + suffix, " ", link);
-						}
+
+						addResult(events[i].name + '<br/>', date, time.join(':') + ' ' + suffix, events[i].place.location.city + ', ' + events[i].place.location.country, link);
 						
 					}
 				}
@@ -76,6 +83,6 @@ function showResults(query) {
 };
 
 function addResult(name, date, time, location, url) {
-	var child = '<div class="result">' + '<a href="' + url + '>' + '<span id = "emptyspan"></span></a>' + '<p class="event-name">' + name + '</p><p class="event-date">' + date + '</p><p class="event-time">' + time + '</p><p class="event-location">' + location + '</p></div>';
+    var child = '<a id="linkBox" href="' + url + '>' + '<div class="result">' + '<span id = "emptyspan"></span>' + '<p class="event-name"> <B id="bold">' + name + '</B></p><p class="event-date">' + date + '</p><p class="event-time">' + time + '</p><p class="event-location">' + location + '</p></div>' + '</a>';
 	$('#results').append(child);
 }
