@@ -45,7 +45,7 @@ function showResults(query) {
 		FB.api(
 			'/search',
 			'GET',
-			{ "q": query, "limit": 1000, "type": "event", "access_token": "CAACEdEose0cBAOo2riP0KhZA7RlJNTFZB85txZA4ilvRjZCKAITpq8CofoilEINPpLQq0XbrmDBJ9QH1OFPaZCDzyJzlP7NIgV7r452ZBbI0y1PZArttNqTMBCizcwJIQ2KjclP1a11yhqIO70kbDtojSpa5xeHm5V0dZBe45tJPaSoD1IcwnQDZBlT60qCkRKlUu1OsRKZA2ZBNAZDZD" },
+			{ "q": query, "limit": 1000, "type": "event", "access_token": "CAACEdEose0cBALnhX8gggj8uZCdQaS5DrE3F8rQdXLfnuZBUTdXlifiRVek9p8FCKLZAeCtWeStGSrVRyz3r2CfX4HOadsW2AxLsQcJrDcAFBrT0icqyv1PjJZBwUw6okOg5eQZCdNmFaQ86MFwSX37n2oeWxYntsXyDVPsWolFdm966pzA9cIrgt1OOWGDmwhvbdsDUSigZDZD" },
 			function (response) {
 				var currDate = new Date();
 				var events = response.data;
